@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
   if(req.session.user) {
     return next() ;
   }
-  res.render('rooms/index', {title:"Rooms"});
+  res.render('rooms/index', {title:"Rooms", rooms:rooms});
 });
 
 router.use(function(req, res, next) {
@@ -76,6 +76,23 @@ router.post('/', function(req, res, next) {
   })
 });
 
+// Find OneRoom
+router.get('/:id', function(req, res, next) {
+  let bookId = req.params.id;
+
+    Mongo.getInstance()
+    .collection('romms')
+    .findOne({_id: ObjectId(roomId)}, function (err, result) {
+        if (err) {
+          return res.json({
+            status: false,
+            message: err.message
+          })
+        }
+        return res.json({status : true, result: result});
+    })
+  });
+
 router.get('/', function(req, res, next) {
   Mongo.getInstance()
   .collection('rooms')
@@ -85,4 +102,57 @@ router.get('/', function(req, res, next) {
   })
 
 });
+
+// /* edit room */
+// router.put('/:id', function(req, res, next) {
+//   let errors = [];
+//   if (!req.body.title) {
+//     errors.push('Titre');
+//   }
+//   if (!req.body.description) {
+//     errors.push('Description');
+//   }
+//
+//   if(errors.length) {
+//     return next(createError(412, "Merci de vérifier les champs : "+errors.join(', ')));
+//   }
+//   console.log(req.body);
+//   let bookId = req.params.id;
+//   let datas = {
+//     title: req.body.title,
+//     description: req.body.description,
+//   }
+//   Mongo.getInstance()
+//   .collection('flipbooks')
+//   .updateOne({_id : ObjectId(bookId)}, {$set:datas},
+//     function(err, result) {
+//       if (err) {
+//           return  res.json({
+//             status : false,
+//             message: err.message
+//           })
+//
+//       }
+//       res.json({status : true});
+//   })
+//
+// });
+
+/* Delete room */
+router.delete('/:id', function(req, res, next) {
+  // console.log(req.params.id);
+  let roomId = req.params.id;
+  Mongo.getInstance()
+  .collection('rooms')
+  .deleteOne({_id : ObjectId(roomId)}, function(err, result) {
+      if (err) {
+          return  res.json({
+            status : false,
+            message: err.message
+          })
+      }
+      res.json({status : true});
+  })
+});
+
 module.exports = router;

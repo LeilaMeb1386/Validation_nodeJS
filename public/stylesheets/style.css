@@ -365,6 +365,11 @@ small,
   font-size: 80%;
   font-weight: 400; }
 
+  .divbtn{
+    display:flex;
+    flex-direction: row;
+  }
+
 mark,
 .mark {
   padding: 0.2em;

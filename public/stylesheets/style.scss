@@ -7,4 +7,8 @@ a{
   color: #00B7FF;
 }
 
+.divbtn{
+  display:flex;
+  flex-direction: row;
+}
 @import "../../node_modules/bootstrap/scss/bootstrap";
