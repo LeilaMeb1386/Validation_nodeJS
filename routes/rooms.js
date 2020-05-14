@@ -21,7 +21,7 @@ const ObjectId = require('mongodb').ObjectId;
 // const upload = multer({storage: storage});
 
 
-/* admin avec formulaire login/creation */
+/* user formulaire login/creation */
 router.get('/', function(req, res, next) {
   if(req.session.user) {
     return next() ;
@@ -37,7 +37,45 @@ router.use(function(req, res, next) {
   return next();
 })
 
-/* retourne le dashboard */
+/* insert room */
+
+router.post('/', function(req, res, next) {
+  let errors = [];
+  if (!req.body.name) {
+    errors.push('Nom de la room');
+  }
+  if (!req.body.status) {
+    errors.push('Status');
+  }
+  if (!req.body.users) {
+    errors.push('Users list');
+  }
+
+  if(errors.length) {
+    return next(createError(412, "Merci de vérifier les champs : "+errors.join(', ')));
+  }
+  let datas = {
+    name: req.body.name,
+    status: req.body.status,
+    owner: req.session.user.username,
+    users: req.body.users,
+  }
+  Mongo.getInstance()
+  .collection('rooms')
+  .insertOne(datas,
+    function(err, result) {
+      if (err) {
+        if(err.message.indexOf('duplicate key') !== -1){
+          return  res.json({
+            status : false,
+            message: err.message
+          })
+        }
+      }
+      res.redirect('/rooms');
+  })
+});
+
 router.get('/', function(req, res, next) {
   Mongo.getInstance()
   .collection('rooms')
