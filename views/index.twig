@@ -1,6 +1,95 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-  <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-8" id="loginContainer">
+        <div class="card shadow shadow-sm">
+          <div class="card-header">
+            <h3 class="mb-0">Identification</h3>
+          </div>
+        <div class="card-body">
+          <form class="form" action="" method="POST" id="loginForm">
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="text" class="form-control" name="email" required>
+              </div>
+              <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" name="password" class="form-control" required>
+              </div>
+              <input type="submit" class="btn btn-secondary float-right" id="loginSubmit" value="Identification">
+          </form>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="float-right" id="btnRegister">Créer mon compte</a>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    {# Création de compte #}
+    {# <div class="container">
+      <div class="row"> #}
+        <div class="col-lg-6 col-md-8 d-none" id="registerContainer">
+          <div class="card rounded shadow shadow-sm">
+            <div class="card-header">
+              <h3 class="mb-0">Création de compte</h3>
+            </div>
+          <div class="card-body">
+            <form class="form" action="" method="POST" id="registerForm">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+
+                <div class="form-group">
+                <p>Choisis ton avatar:</p>
+
+                  <div>
+                    <input type="radio" id="1" name="avatar" value="huey">
+                    <img src="/images/avatar2.png" alt="Avatar" class="avatar">
+                  </div>
+
+                  <div>
+                    <input type="radio" id="2" name="avatar" value="dewey">
+                    <img src="/images/avart3.png" alt="Avatar" class="avatar">
+                  </div>
+
+                  <div>
+                    <input type="radio" id="3" name="avatar" value="louie">
+                    <img src="/images/avatar4.png" alt="Avatar" class="avatar">
+                  </div>
+                </div>
+
+                <div>
+                  <input type="radio" id="4" name="avatar" value="louie">
+                  <img src="/images/avatar6.png.png" alt="Avatar" class="avatar">
+                </div>
+              </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirmation de mot de passe</label>
+                    <input type="password" name="password_confirm" class="form-control"  required>
+                </div>
+                <input type="submit" class="btn btn-secondary float-right" id="registerSubmit" value="Créer mon compte">
+            </form>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="float-right" id="btnLogin">Connexion</a>
+          </div>
+          </div>
+        </div>
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript" src="/javascripts/login.js"></script>
 {% endblock %}
